@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>transition</title>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <div id = "container"></div>
+<script>
+
+var w = 1400; //window.outerWidth-50;
+var h = 100; //window.innerHeight-50;
+
+svg = d3.select("#container")
+    .append("svg")
+    .attr({
+      "width": w,
+      "height": h,
+        })
+
+ var vis = svg //for the visualization
+    .append('svg:g')
+    .attr("transform",
+      "translate("+ 0 + "," + 0 + ")");  
+var sentenceSplit;
+var sentenceOne = ["my mind is sleepy"];
+for (i=0; i<sentenceOne.length; i++){ 
+	sentenceSplit = sentenceOne[i].split(" "); 
+}
+
+var text = vis.selectAll("labels")
+    .data(sentenceSplit)
+    .enter().append("text")
+    .attr("class",function(d,i){
+        return "word"+i;
+    })
+    .attr("x", function(d,i){
+    	console.log(sentenceSplit[i].length)
+    	console.log(d.length)
+    	if(i>0){
+     		return 50*i;   		
+    	}
+    		return 10;   		
+    	// var mapX = d3.scale.linear()
+    	// .domain([0,sentenceSplit.length])
+    	// .range([20, w-20])
+    	// return mapX(Math.random()*i)
+    })
+    .attr("y", 40)
+    .attr("fill","rgb(53, 208, 205)")
+    .attr("opacity",1)
+    .text(function(d,i) {
+    	return d;
+    	// if(i==0){
+     //     return sentenceSplit.join(" ");   		
+    	// }
+    	// else{}
+    });
+
+text
+	.transition()
+	.delay(1000)
+	.duration(6000)
+    .attr("opacity",function(d,i){
+    	if(i==1){
+    		return 1;
+    	}
+    	if(i==3){
+    		return 1;
+    	}
+    	else{ return .1; }
+    })
+
+</script>
+</body>
+</html>
